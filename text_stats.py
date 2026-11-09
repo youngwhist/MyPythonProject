@@ -1,8 +1,21 @@
-import re,collections
+"""Статистика текста: слова, частые слова, предложения."""
+import collections
+import re
+
+WORD = re.compile(r"\w+")
+
+
 def word_count(text):
-    return len(re.findall(r"\w+",text))
-def TopWords(text,n=3):
-    words=re.findall(r"\w+",text.lower())
+    """Количество слов в тексте."""
+    return len(WORD.findall(text))
+
+
+def top_words(text, n=3):
+    """n самых частых слов (без учёта регистра)."""
+    words = WORD.findall(text.lower())
     return collections.Counter(words).most_common(n)
+
+
 def sentence_count(text):
-    return len([s for s in re.split(r"[.!?]+",text) if s.strip()])
+    """Количество предложений (по знакам . ! ?)."""
+    return len([s for s in re.split(r"[.!?]+", text) if s.strip()])
